@@ -120,11 +120,12 @@ const email = document.getElementById('email')
 const cardNumberInput = document.getElementById("cc-num")
 const zipCodeInput = document.getElementById("zip")
 const cvvInput = document.getElementById("cvv")
+const checkedBox = register.querySelectorAll('input[type="checkbox"]')
+const nameInput = nameElem.value
 
 form.addEventListener("submit", (event) => {
     
     // check name field
-    const nameInput = nameElem.value
     if(!/^[a-zA-Z\s]+$/.test(nameInput)){
         alert('Please enter vaild name.')
         event.preventDefault
@@ -137,7 +138,6 @@ form.addEventListener("submit", (event) => {
     }
 
     // check that one activity has been selected by looping over activities
-    const checkedBox = register.querySelectorAll('input[type="checkbox"]')
     let activty = false;
     for(let i = 0; i < checkedBox.length; i++){
         if(checkedBox[i].checked){
@@ -161,3 +161,108 @@ form.addEventListener("submit", (event) => {
         }
       }
 })
+
+// ************* ACCESsIBILITY SECTION *************
+const nameHint = document.getElementById('name-hint')
+const emailHint = document.getElementById('email-hint')
+const activitiesHint = document.getElementById("activities-hint")
+const cc = document.getElementById("cc-num")
+const creditCardNumHint = document.getElementById("cc-hint")
+const zip = document.getElementById("zip")
+const zipHint = document.getElementById("zip-hint")
+const cvv = document.getElementById("cvv")
+const cvvHint = document.getElementById("cvv-hint")
+// add focus to selected activities
+checkedBox.forEach(checkbox => {
+    checkbox.addEventListener('focus', (event) => {
+        event.target.parentElement.classList.add('focus');
+    })
+
+    checkbox.addEventListener('blur', (event) => {
+        event.target.parentElement.classList.remove('focus');
+    })
+});
+
+nameElem.addEventListener('blur', () => {
+    if (nameElem.value.trim() === '') {
+        // name field is invalid
+        nameElem.classList.add('not-valid');
+        nameElem.classList.remove('valid');
+        nameHint.style.display = 'block'; 
+      } else {
+        // name field is valid
+        nameElem.classList.remove('not-valid'); 
+        nameElem.classList.add('valid');
+        nameHint.style.display = 'none'; 
+      }
+    });
+
+email.addEventListener('blur', () => {
+    if (email.value.trim() === '') {
+        // email field is invalid
+        email.classList.add('not-valid');
+        email.classList.remove('valid');
+        emailHint.style.display = 'block'; 
+        } else {
+        // email field is valid
+        email.classList.remove('not-valid'); 
+        email.classList.add('valid');
+        emailHint.style.display = 'none'; 
+        }
+    });
+
+register.addEventListener('blur', () => {
+    if (register.value.trim() === '') {
+        // register field is invalid
+        register.classList.add('not-valid');
+        register.classList.remove('valid');
+        activitiesHint.style.display = 'block'; 
+        } else {
+        // register field is valid
+        register.classList.remove('not-valid'); 
+        register.classList.add('valid');
+        activitiesHint.style.display = 'none'; 
+        }
+    });
+
+cc.addEventListener('blur', () => {
+    if (cc.value.trim() === '') {
+        // cc field is invalid
+        cc.classList.add('not-valid');
+        cc.classList.remove('valid');
+       creditCardNumHint.style.display = 'block'; 
+        } else {
+        // cc field is valid
+        cc.classList.remove('not-valid'); 
+        cc.classList.add('valid');
+        creditCardNumHint.style.display = 'none'; 
+        }
+    });
+
+zip.addEventListener('blur', () => {
+    if (zip.value.trim() === '') {
+        // zip field is invalid
+        zip.classList.add('not-valid');
+        zip.classList.remove('valid');
+        zipHint.style.display = 'block'; 
+        } else {
+        // zip field is valid
+        zip.classList.remove('not-valid'); 
+        zip.classList.add('valid');
+        zipHint.style.display = 'none'; 
+        }
+    });
+
+cvv.addEventListener('blur', () => {
+    if (cvv.value.trim() === '') {
+        // cvv field is invalid
+        cvv.classList.add('not-valid');
+        cvv.classList.remove('valid');
+        cvvHint.style.display = 'block'; 
+        } else {
+        // cvv field is valid
+        cvv.classList.remove('not-valid'); 
+        cvv.classList.add('valid');
+        cvvHint.style.display = 'none'; 
+        }
+    });
