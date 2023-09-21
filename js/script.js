@@ -130,13 +130,13 @@ form.addEventListener("submit", (event) => {
     console.log(selectedPayment)
     // check name field
     if(!(/^[a-z\s]+$/i.test(nameElem.value))){
-        alert('Please enter vaild name.')
+        // alert('Please enter vaild name.')
         event.preventDefault();
     }
 
     // check email field
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
-        alert('Please enter a valid email address.');
+        // alert('Please enter a valid email address.');
         event.preventDefault();
     }
 
@@ -151,7 +151,7 @@ form.addEventListener("submit", (event) => {
 
     // if activity value still false alert user
     if(!activty){
-        alert("Please select at least one activity to register for.")
+        // alert("Please select at least one activity to register for.")
         event.preventDefault();
     }
     console.log(selectedPayment)
