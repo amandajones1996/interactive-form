@@ -121,24 +121,52 @@ const form = document.querySelector("form")
 const email = document.getElementById('email')
 const cardNumberInput = document.getElementById("cc-num")
 const zipCodeInput = document.getElementById("zip")
+const zipLabel = zip.parentElement;
+const zipHint = document.getElementById("zip-hint")
 const cvvInput = document.getElementById("cvv")
-const checkedBox = register.querySelectorAll('input[type="checkbox"]')
+const checkedBox = register.querySelectorAll('input[type="checkbox"]') 
+const nameLabel = nameElem.parentElement;
+const nameHint = document.getElementById('name-hint')
+const emailLabel = email.parentElement;
+const emailHint = document.getElementById('email-hint')
+const ccLabel = cardNumberInput.parentElement;
+const creditCardNumHint = document.getElementById("cc-hint")
+const cvvLabel = cvv.parentElement;
+const cvvHint = document.getElementById("cvv-hint")
 
 
 
 form.addEventListener("submit", (event) => {
     console.log(selectedPayment)
     // check name field
-    if(!(/^[a-z\s]+$/i.test(nameElem.value))){
-        // alert('Please enter vaild name.')
+    if(!(/^[a-z\s]+$/i.test(nameElem.value)) || nameElem.value === ""){
         event.preventDefault();
+        // name field is invalid
+        nameLabel.classList.add('not-valid');
+        nameLabel.classList.remove('valid');
+        nameHint.style.display = 'block'; 
+      } else {
+        // name field is valid
+        nameLabel.classList.remove('not-valid'); 
+        nameLabel.classList.add('valid');
+        nameHint.style.display = 'none'; 
+        
     }
 
     // check email field
-    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value) || email.value === "") {
         // alert('Please enter a valid email address.');
         event.preventDefault();
-    }
+            // email field is invalid
+            emailLabel.classList.add('not-valid');
+            emailLabel.classList.remove('valid');
+            emailHint.style.display = 'block'; 
+            } else {
+            // email field is valid
+            emailLabel.classList.remove('not-valid'); 
+            emailLabel.classList.add('valid');
+            emailHint.style.display = 'none'; 
+        }
 
     // check that one activity has been selected by looping over activities
     let activty = false;
@@ -151,35 +179,54 @@ form.addEventListener("submit", (event) => {
 
     // if activity value still false alert user
     if(!activty){
-        // alert("Please select at least one activity to register for.")
+        alert("Please select at least one activity to register for.")
         event.preventDefault();
     }
     console.log(selectedPayment)
     
     // check if payment method credit card to validate extra fields if so
     if (selectedPayment === 'credit-card') {
-        console.log("help")
-        const cardNumberValue = cardNumberInput.value.trim();
-        const zipCodeValue = zipCodeInput.value.trim();
-        const cvvValue = cvvInput.value.trim();
+        
 
         // Validate credit card fields
-        if (!/^\d{13,16}$/.test(cardNumberValue)) {
-          alert('Please enter valid credit card (number 13-16 digits).');
+        if (!/^\d{13,16}$/.test(cardNumberInput.value) || cardNumberInput.value === '') {
           event.preventDefault();
-          return;
+             // cc field is invalid
+            ccLabel.classList.add('not-valid');
+            ccLabel.classList.remove('valid');
+            creditCardNumHint.style.display = 'block'; 
+        } else {
+            // cc field is valid
+            ccLabel.classList.remove('not-valid'); 
+            ccLabel.classList.add('valid');
+            creditCardNumHint.style.display = 'none';  
         }
 
-        if(!/^\d{5}$/.test(zipCodeValue)) {
-            alert('Please enter valid 5 digit zip code.');
+        if(!/^\d{5}$/.test(zipCodeInput.value) || zipCodeInput.value === "") {
             event.preventDefault();
-            return;
+            // zip field is invalid
+            zipLabel.classList.add('not-valid');
+            zipLabel.classList.remove('valid');
+            zipHint.style.display = 'block'; 
+        } else {
+            // zip field is valid
+            zipLabel.classList.remove('not-valid'); 
+            zipLabel.classList.add('valid');
+            zipHint.style.display = 'none'; 
         }
 
-        if(!/^\d{3}$/.test(cvvValue)){
-            alert('Please enter valid 3 digit CVV.');
+        if(!/^\d{3}$/.test(cvvInput.value) || cvvInput.value == ""){
             event.preventDefault();
-            return;
+              // cvv field is invalid
+            cvvLabel.classList.add('not-valid');
+            cvvLabel.classList.remove('valid');
+            cvvHint.style.display = 'block'; 
+        } else {
+        // cvv field is valid
+            cvvLabel.classList.remove('not-valid'); 
+            cvvLabel.classList.add('valid');
+            cvvHint.style.display = 'none'; 
+            
         }
       }
 })
@@ -196,12 +243,10 @@ checkedBox.forEach(checkbox => {
     })
 });
 
-nameElem.addEventListener('blur', () => {
-    const nameValue = nameElem.value.trim();
-    const nameLabel = nameElem.parentElement;
-    const nameHint = document.getElementById('name-hint')
 
-    if (nameValue === '') {
+
+nameElem.addEventListener('blur', () => {
+    if (!(/^[a-z\s]+$/i.test(nameElem.value)) || nameElem.value === "") {
         // name field is invalid
         nameLabel.classList.add('not-valid');
         nameLabel.classList.remove('valid');
@@ -215,10 +260,8 @@ nameElem.addEventListener('blur', () => {
     });
 
 email.addEventListener('blur', () => {
-    const emailValue = email.value.trim();
-    const emailLabel = email.parentElement;
-    const emailHint = document.getElementById('email-hint')
-    if (emailValue === '') {
+   
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value) || email.value.trim() === "") {
         // email field is invalid
         emailLabel.classList.add('not-valid');
         emailLabel.classList.remove('valid');
@@ -247,11 +290,9 @@ register.addEventListener('blur', () => {
         activitiesHint.style.display = 'none'; 
         }
     });
-const cc = document.getElementById("cc-num")
-cc.addEventListener('blur', () => {
-    const ccLabel = cc.parentElement;
-    const creditCardNumHint = document.getElementById("cc-hint")
-    if (cc.value.trim() === '') {
+
+cardNumberInput.addEventListener('blur', () => {
+    if (!/^\d{13,16}$/.test(cardNumberInput.value) || cardNumberInput.value.trim() === '') {
         // cc field is invalid
         ccLabel.classList.add('not-valid');
         ccLabel.classList.remove('valid');
@@ -264,11 +305,8 @@ cc.addEventListener('blur', () => {
         }
     });
 
-const zip = document.getElementById("zip")
-zip.addEventListener('blur', () => {
-    const zipLabel = zip.parentElement;
-    const zipHint = document.getElementById("zip-hint")
-    if (zip.value.trim() === '') {
+zipCodeInput.addEventListener('blur', () => {
+    if (!/^\d{5}$/.test(zipCodeInput.value) || zipCodeInput.value.trim() === "") {
         // zip field is invalid
         zipLabel.classList.add('not-valid');
         zipLabel.classList.remove('valid');
@@ -281,11 +319,9 @@ zip.addEventListener('blur', () => {
         }
     });
 
-const cvv = document.getElementById("cvv")
-cvv.addEventListener('blur', () => {
-    const cvvLabel = cvv.parentElement;
-    const cvvHint = document.getElementById("cvv-hint")
-    if (cvv.value.trim() === '') {
+
+cvvInput.addEventListener('blur', () => {
+    if (!/^\d{3}$/.test(cvvInput.value) || cvvInput.value == "") {
         // cvv field is invalid
         cvvLabel.classList.add('not-valid');
         cvvLabel.classList.remove('valid');
