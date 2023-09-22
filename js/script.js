@@ -134,7 +134,7 @@ const cvvLabel = cvv.parentElement;
 const cvvHint = document.getElementById("cvv-hint")
 const month = document.getElementById("exp-month")
 const year = document.getElementById("exp-year")
-console.log("month:", month, "year:", year)
+const activitiesHint = document.getElementById("activities-hint")
 
 
 
@@ -181,10 +181,18 @@ form.addEventListener("submit", (event) => {
 
     // if activity value still false alert user
     if(!activty){
-        alert("Please select at least one activity to register for.")
         event.preventDefault();
-    }
-    console.log(selectedPayment)
+         // email field is invalid
+         total.classList.add('not-valid');
+         total.classList.remove('valid');
+         activitiesHint.style.display = 'block'; 
+         } else {
+         // email field is valid
+         total.classList.remove('not-valid'); 
+         total.classList.add('valid');
+         activitiesHint.style.display = 'none'; 
+     }
+
     
     // check if payment method credit card to validate extra fields if so
     if (selectedPayment === 'credit-card') {
@@ -277,8 +285,6 @@ email.addEventListener('blur', () => {
     });
 
 register.addEventListener('blur', () => {
-    const activitesLabel = register.children[1]
-    console.log(activitesLabel)
     const activitiesHint = document.getElementById("activities-hint")
     if (register.value.trim() === '') {
         // register field is invalid
