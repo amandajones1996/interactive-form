@@ -17,7 +17,6 @@ otherJob.style.display = "none"
 // event listener to watch for drop down option selected
 title.addEventListener("change", (event) => {
     const selected = event.target.value;
-    console.log("selected value", selected)
 
     if(selected === "other"){
         otherJob.style.display = 'block'
@@ -133,6 +132,9 @@ const ccLabel = cardNumberInput.parentElement;
 const creditCardNumHint = document.getElementById("cc-hint")
 const cvvLabel = cvv.parentElement;
 const cvvHint = document.getElementById("cvv-hint")
+const month = document.getElementById("exp-month")
+const year = document.getElementById("exp-year")
+console.log("month:", month, "year:", year)
 
 
 
@@ -333,3 +335,4 @@ cvvInput.addEventListener('blur', () => {
         cvvHint.style.display = 'none'; 
         }
     });
+
