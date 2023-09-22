@@ -88,7 +88,7 @@ console.log(paypal)
 const bitcoin = document.getElementById('bitcoin')
 console.log(bitcoin)
 bitcoin.hidden = true;
-let selectedPayment = '';
+let selectedPayment = 'credit-card';
 
 paymentMethod.children[1].setAttribute('selected', 'true')
 
@@ -139,7 +139,7 @@ const activitiesHint = document.getElementById("activities-hint")
 
 
 form.addEventListener("submit", (event) => {
-    console.log(selectedPayment)
+    console.log("selected payment", selectedPayment)
     // check name field
     if(!(/^[a-z\s]+$/i.test(nameElem.value)) || nameElem.value === ""){
         event.preventDefault();
@@ -182,14 +182,14 @@ form.addEventListener("submit", (event) => {
     // if activity value still false alert user
     if(!activty){
         event.preventDefault();
-         // email field is invalid
-         total.classList.add('not-valid');
-         total.classList.remove('valid');
+         // activity field is invalid
+         register.classList.add('not-valid');
+         register.classList.remove('valid');
          activitiesHint.style.display = 'block'; 
          } else {
-         // email field is valid
-         total.classList.remove('not-valid'); 
-         total.classList.add('valid');
+         // activity field is valid
+         register.classList.remove('not-valid'); 
+         register.classList.add('valid');
          activitiesHint.style.display = 'none'; 
      }
 
